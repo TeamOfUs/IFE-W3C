@@ -29,26 +29,27 @@ nav{
 .nav-item{
     display: inline-block;
     margin: 10px 10px;
-    
+
 }
 .nav-item>a{
     color:white;
 }
 article,.register{
-    margin: 10px 10%;
+    margin: 10px 700px 10px 10%;
     border: 2px;
     background-color: white;
     padding: 10px 20px;
     box-shadow: 2px 2px gray;
+    min-width: 200px;
 }
 p{
-    text-indent:2em
+    text-indent:2em;
 }
 .secondary-title,h5{
-    color: gray
+    color: gray;
 }
 .figure-style{
-    width: 100%;
+
     border: 1px solid;
     border-color: gray;
     padding: 20px;
@@ -72,6 +73,13 @@ tr>td:last-of-type{
 }
 tr:last-of-type{
     background-color:darkgray;
+}
+.register{
+    top: 70px;
+    position: absolute;
+    right: 0;
+    margin: 10px 10% 10px 10px;
+    width: 450px;
 }
 .register>h2{
     border-left: 3px gray solid;
@@ -104,4 +112,9 @@ footer{
     background-color: black;
     color: white;
     text-align: center;
+}
+
+
+img{
+    width: 100%;
 }
