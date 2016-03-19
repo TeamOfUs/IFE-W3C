@@ -3,43 +3,47 @@
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
     <title>HTML、CSS布局入门，三栏式布局的实践</title>
     <style type="text/css">
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        .boxmain{
-            float: left;
-            margin-right: -200px;
-            width: 100%;
-        }
-        .right,.left{
-            height: 300px;
-            width: 200px;
-            z-index: 1;
-        }
-        .right{
-            position: absolute;
-            right: 0;
-            background: #093;
-        }
-        .left{
-            position: absolute;
-            left: 0;
-            background-color: skyblue
-        }
-        .main{
-            margin-right: 200px;
-            margin-left: 200px;
-            background-color: mediumvioletred;
-            height: 300px;
-        }
+        *{margin: 0;padding: 0;}
+        .boxmain{float: left;margin-right: -120px;width: 100%;}
+        .right{height: 540px;width: 160px;z-index: 1;position: absolute;right: 0;}
+        .left{height: 160px;width: 240px;z-index: 1;position: absolute;left: 0;}
+        .main{margin-right: 140px;margin-left: 240px;height: 300px;}
+        .bgcbox{height: 540px;border: 1px solid #999;background-color: #eee;}
+        .team{margin:20;height: 120px;width: 200px; border: 1px solid #999;background-color: white}
+        .imgteam{margin: 20px;float: left}
+        .teamname{float: left;margin-top: 20px;text-align: center;}
+        .clu{margin: 20px;height: 500px; border: 1px solid #999;}
+        .members{padding: 10px 20px 10px 20px;background-color: white}
+        .message{margin: 20px;padding: 20px; height: 380px; border:1px solid #999;background-color: white;}
+        .firstpara{margin-top: 20px;text-indent:2em;}
     </style>
 </head>
 <body>
-    <div class="boxmain">
-        <div class="main">main</div>
+    <div class="bgcbox">
+        <div class="boxmain">
+            <div class="main">
+                <div class="message">
+                    <h3>关于W3C团队介绍</h3>
+                    <p class="firstpara">W3C团队是来自大连民族大学计算机学院的5名热血于前端的学生组成，我们团结，互帮互助，为了伟大的前端事业奋斗！(此处略去10000字)</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="left">
+            <div class="team" >
+                <img src="logo-team.jpg" class="imgteam">
+                <span class="teamname">W3C</span>
+            </div>
+        </div>
+        <div class="right">
+            <div class="clu">
+                <div class="members"><img src="xian.jpg"></div>
+                <div class="members"><img src="lissary.jpg"></div>
+                <div class="members"><img src="joker.jpg"></div>
+                <div class="members"><img src="summer.jpg"></div>
+                <div class="members"><img src="zhou.jpg"></div>
+            </div>
+        </div>
     </div>
-    <div class="left">left</div>
-    <div class="right">right</div>
 </body>
 </html>
