@@ -5,6 +5,7 @@ body{
     background-color: lightgray;
     margin: 0px;
     border: 0px;
+    min-width: 850px;
 }
 #header {
     background-color: dimgray;
@@ -40,7 +41,6 @@ article,.register{
     background-color: white;
     padding: 10px 20px;
     box-shadow: 2px 2px gray;
-    min-width: 200px;
 }
 p{
     text-indent:2em;
@@ -113,7 +113,9 @@ footer{
     color: white;
     text-align: center;
 }
-
+.introduce{
+    text-align:
+}
 
 img{
     width: 100%;
