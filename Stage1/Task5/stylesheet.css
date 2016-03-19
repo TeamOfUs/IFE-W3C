@@ -12,6 +12,7 @@ body{
     height: 70px;
     border: 0px;
     margin: 0px;
+    width: 100%
 }
 
 #logo {
@@ -30,7 +31,6 @@ nav{
 .nav-item{
     display: inline-block;
     margin: 10px 10px;
-
 }
 .nav-item>a{
     color:white;
@@ -112,6 +112,7 @@ footer{
     background-color: black;
     color: white;
     text-align: center;
+    width: 100%
 }
 .introduce{
     text-align:
