@@ -1,0 +1,42 @@
+.top{
+    position: fixed;
+    top: 0;
+    background: white;
+    height: 54px;
+    width: 100%;
+    display: -webkit-flex;
+    display: flex;
+    min-width: 800px;
+    z-index: 5;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.top img.logo{
+    height: 32px;
+    width: 32px;
+    padding-left: 60px;
+    padding-top: 10px;
+}
+
+.top span.space{
+    -webkit-flex: 1;
+    flex: 0.9;
+}
+.top span.title{
+    padding-left: 10px;
+    padding-top: 30px;
+    font-size: 20px;
+}
+.top div.tab, .top div.title:hover{
+    color: #ec0000;
+    border-bottom: 5px solid #ec0000;
+}
+.top div.title{
+    font-size: 14px;
+    padding: 20px 30px;
+    //padding-bottom: 50px;
+    color: #999;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-bottom: 0px solid #ec0000;
+}
