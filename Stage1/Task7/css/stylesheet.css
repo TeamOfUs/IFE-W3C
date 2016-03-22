@@ -1,49 +1,58 @@
-
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Microsoft YaHei;
+}
+body{
+    min-width: 1280px;
+    overflow: scroll;
+}
 /*有关于导航栏*/
-.top{
-    position: fixed;
+header{
     top: 0;
     background: white;
     height: 54px;
     width: 100%;
-    display: -webkit-flex;
-    display: flex;
-    min-width: 800px;
     z-index: 5;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 }
-
-.top img.logo{
+#logo-text{
+    font-size: 20px;
+    margin: auto 0;
+    padding: 10px 5px;
+    position: relative;
+    bottom: 5px;
+}
+#logo{
     height: 32px;
     width: 32px;
     padding-left: 60px;
     padding-top: 10px;
 }
-
-.top span.space{
-    -webkit-flex: 1;
-    flex: 0.9;
+#nav-div{
+    float: right;
 }
-.top span.title{
+.title{
     padding-left: 10px;
-    padding-top: 30px;
+    padding-top: 20px;
     font-size: 20px;
+    display: inline-block;
 }
-.top div.tab, .top div.title:hover{
-    color: #ec0000;
-    border-bottom: 5px solid #ec0000;
+.title:hover{
+    color: #d45d5c;
+    border-bottom: 5px solid #d45d5c;
 }
-.top div.title{
+.title{
     font-size: 14px;
-    padding: 20px 30px;
+    padding: 18px 30px 10px 30px;
     color: #999;
     cursor: pointer;
-    transition: all 0.3s;
-    border-bottom: 0px solid #ec0000;
+    transition: border-bottom 0.3s;
+    border-bottom: 0px solid #d45d5c;
 }
 
 /*第一个部分*/
-.part_0{
+#part_0{
     position: relative;
     height: calc(100vmin - 54px);
     display: -webkit-flex;
@@ -52,7 +61,7 @@
     -webkit-justify-content: center;
     justify-content: center;
 }
-.part_0 div.background{
+#part_0 div.background{
     position: absolute;
     top: 0px;
     width: 100%;
