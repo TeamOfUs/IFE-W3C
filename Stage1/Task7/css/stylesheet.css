@@ -51,7 +51,7 @@ header{
     border-bottom: 0px solid #d45d5c;
 }
 
-/*第一个部分*/
+/*第0个部分*/
 #part_0{
     position: relative;
     height: calc(100vmin - 54px);
@@ -74,4 +74,79 @@ header{
     -ms-filter: brightness(0.8);
     filter: brightness(0.8);
     z-index: -1;
+}
+
+.textinpart_0 {
+    padding-left: 120px;
+    height: 400px;
+}
+
+.tiyanButton {
+    background-color: #e74f4d;
+    font-size: 25px;
+    color: white;
+    width: 300px;
+    height: 60px;
+    border: none;
+ }
+
+.part_0_p {
+    color: white;
+    font-size: 20px
+}
+
+.part_0_span {
+    color: white;
+    font-size: 50px;
+    word-spacing: 10px;
+}
+
+/*第1个部分 part_1*/
+#part2-table {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+    height: 180px;
+    width: 100%
+}
+/*第2部分 part_2*/
+.part2-td-bordorl {
+    border-left: 1px solid #767777;
+
+}
+.part2-td-bordorr {
+    border-left: 1px solid #767777;
+    border-right: 1px solid #767777;
+}
+/*第3个部分 part_3*/
+
+.part_3_top {
+    width: 100%;
+    height: 400px;
+    background-color: #edecec;
+}
+
+#part_3 {
+    height: 800px;
+    width: 100%;
+    border: 1px solid black;
+}
+
+.part_3_buttom {
+    border: 1px solid red;
+    height: 400px;
+}
+
+.part_3_top_img {
+    text-align: center;
+    padding-top: 95px;
+    margin-bottom: 29px;
+}
+
+
+.part_3_top_span {
+    color: #a1a1a1;
+    font-size: 50px;
+    letter-spacing: 2px;
+    text-align: center;
 }
