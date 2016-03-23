@@ -1,6 +1,7 @@
 *{
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 th {
     color: white;
@@ -34,31 +35,38 @@ tr:nth-child(3), tr:nth-child(5), tr:nth-child(7),tr:nth-child(9), tr:nth-child(
     margin-top: 50px;
 }
 
-#one {
+.one {
     background-color: red;
-    transition:
 }
 
-#two {
+.two {
     background-color: blue;
 }
 
-#three {
+.three {
     background-color: yellow;
 }
-
+#one:target~.banner{
+    left: 0;
+}
+#two:target~.banner{
+    left: -100%;
+}
+#three:target~.banner{
+    left: -200%;
+}
 .banner-item {
     height: 300px;
     width: 400px;
     display: inline-block;
+    float: left;    
 }
 
 .controller-wrap {
     position: absolute;
     top:580px;
-    left:295px
+    left:295px;
 }
-
 .controller-item {
     width: 30px;
     height: 30px;
@@ -70,6 +78,10 @@ tr:nth-child(3), tr:nth-child(5), tr:nth-child(7),tr:nth-child(9), tr:nth-child(
 }
 
 .banner {
-    position: absolute;
-    transition: left .8s ease-in;
+    position: relative;
+    left: 0;
+    width: 300%;
+    transition: left 1s ease-in-out;
+    -moz-transition: left 1s ease-in-out; 
+	-webkit-transition: left 1s ease-in-out; 
 }
