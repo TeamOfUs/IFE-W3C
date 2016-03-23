@@ -39,6 +39,17 @@
          coding here
          */
 
+        var source = document.getElementById("source"),
+                items = source.getElementsByTagName("li"),
+                data = new Array();
+
+        for(var i=0; i<items.length; i++){
+            var item = new Array();
+            item[0] = items[i].innerText.substr(0,2);
+            item[1] = items[i].innerText.substr(7,2);
+            data.push(item);
+        }
+
         /*
          data = [
          ["北京", 90],
@@ -58,6 +69,12 @@
      */
     function sortAqiData(data) {
 
+        data.sort(function (a, b) {
+            return b[1] - a[1];
+        });
+
+        return data;
+
     }
 
     /**
@@ -66,6 +83,19 @@
      * 格式见ul中的注释的部分
      */
     function render(data) {
+
+        var resort = document.getElementById("resort"),
+                rankList = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十"],
+                rank = 0,
+                i;
+
+        for (i=0; i<data.length; i++) {
+            if (data[i][1] > 60) {
+
+                resort.innerHTML += '<li>第' + rankList[rank] + '名：' + data[i][0] + '空气质量：<b>' + data[i][1] + '</b></li>';
+                rank++;
+            }
+        }
 
     }
 
@@ -79,6 +109,9 @@
     function init() {
 
         // 在这下面给sort-btn绑定一个点击事件，点击时触发btnHandle函数
+        var sortBtn = document.getElementById("sort-btn");
+
+        sortBtn.onclick = btnHandle;
 
     }
 
