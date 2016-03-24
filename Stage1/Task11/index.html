@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no,email=no" />
+    <title>Task11</title>
+    <link rel="stylesheet" href="./css/stylesheet.css" />
+</head>
+<body>
+    <header>
+        <div id="back"><返回</div>
+        <div id="title">这是标题</div>
+    </header>
+    <nav>
+        <ul>
+            <li>导航</li>
+            <li>导航</li>
+            <li>导航</li>
+            <li>导航</li>
+            <li>导航</li>
+        </ul>
+    </nav>
+    <script>
+        var cssEl = document.createElement('style');
+        document.documentElement.firstElementChild.appendChild(cssEl);
+
+        function setPxPerRem(){
+            var dpr = 1;
+            //把viewport分成10份的rem，html标签的font-size设置为1rem的大小;
+            var pxPerRem = document.documentElement.clientWidth * dpr / 10;
+            cssEl.innerHTML = 'html{font-size:' + pxPerRem + 'px!important;}';
+        }
+        setPxPerRem();
+    </script>
+</body>
+</html>
+
+

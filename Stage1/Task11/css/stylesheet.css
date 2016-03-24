@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Microsoft YaHei";
+
+}
+header {
+    background-color: #91d4da;
+    color: white;
+    display: flex;
+    display: -webkit-flex;
+    height: 1rem;
+}
+header>div{
+    display: inline-block;
+}
+
+#title {
+    font-size: 0.5rem;
+    margin: auto;
+}
+
+#back {
+    font-size: 0.5rem;
+    margin: auto 0;
+}
+nav{
+    height: 1.5rem;
+}
+li {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    font-size: 0.5rem;
+    margin: auto;
+}
+ul {
+    display: flex;
+        height: 1.5rem;
+}
