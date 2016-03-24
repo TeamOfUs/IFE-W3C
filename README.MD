@@ -6,6 +6,14 @@
 
 
 # 任务
-- [IFE春季班第一阶段任务](Stage1/README.MD)
+- [IFE春季班第一阶段任务](Stage1/README.md)
 
 - [IFE春季班第二阶段任务](#)
+
+
+# 使用的 Git Flow
+
+- 产品分支：master
+- 开发分支：develop
+- 功能分支：feature/xxx
+- 修复补丁分支：hotfix/xxx
