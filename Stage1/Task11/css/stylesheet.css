@@ -165,3 +165,12 @@ table {
     display: flex;
     margin: 0.2rem 0;
 }
+
+.article-model-img-center {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.flex-center {
+    margin: auto;
+}
