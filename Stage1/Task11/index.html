@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no,email=no" />
+    <title>Task11</title>
+    <link rel="stylesheet" href="./css/stylesheet.css" />
+</head>
+<body>
+    <header>
+        <div id="back"><返回</div>
+        <div id="title">这是标题</div>
+    </header>
+    <nav>
+        <ul class="nav">
+            <li>导航</li>
+            <li>导航</li>
+            <li>导航</li>
+            <li>导航</li>
+            <li>导航</li>
+        </ul>
+    </nav>
+    <img id="bear" src="./img/bear.png" alt="">
+    <table>
+        <tr>
+            <td>
+                <img class="lable-img" src="./img/tab.png" alt="">
+            </td>
+            <td>
+                <img class="lable-img" src="./img/tab.png" alt="">
+            </td>
+            <td>
+                <img class="lable-img" src="./img/tab.png" alt="">
+            </td>
+            <td>
+                 <img class="lable-img" src="./img/tab.png" alt="">
+            </td>
+            <td>
+                <img class="lable-img" src="./img/tab.png" alt="">
+            </td>
+        </tr>
+        <tr>
+            <td class="lable">标签</td>
+            <td class="lable">标签</td>
+            <td class="lable">标签</td>
+            <td class="lable">标签</td>
+            <td class="lable">标签</td>
+        </tr>
+    </table>
+    <div id="under-nav">
+        <div class="child-under-nav">
+            <img class="under-nav-img" src="./img/mod.png" alt="">
+            <div class="text-mid">分栏一</div>
+            <div class="text-mid">分栏小标题</div>
+        </div>
+        <div class="child-under-nav">
+            <img class="under-nav-img" src="./img/mod.png" alt="">
+            <div class="text-mid">分栏二</div>
+            <div class="text-mid">分栏小标题</div>
+        </div>
+        <div class="child-under-nav">
+            <img class="under-nav-img" src="./img/mod.png" alt="">
+            <div class="text-mid">分栏三</div>
+            <div class="text-mid">分栏小标题</div>
+        </div>
+    </div>
+    <div class="model">
+        <span class="model-title">模块一</span>
+        <div class="model-container">
+            <div class="model-item">
+            <img class="model-img" src="./img/mod.png" alt="">
+            <div class="flex-container">
+                <div class="model-text">这是文案</div>
+                <div class="model-text">这是文案</div>
+            </div>
+            <div class="flex-container">
+                <div class="model-text">这是文案</div>
+                <div class="model-text">这是文案</div>
+            </div>
+            </div>
+            <div class="model-item">
+            <img class="model-img" src="./img/mod.png" alt="">
+            <div class="flex-container">
+                <div class="model-text">这是文案</div>
+                <div class="model-text">这是文案</div>
+            </div>
+            <div class="flex-container">
+                <div class="model-text">这是文案</div>
+                <div class="model-text">这是文案</div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="model">
+        <span class="model-title">模块二</span>
+        <div class="model-container">
+            <div class="model-item">
+            <img class="model-img" src="./img/mod.png" alt="">
+            <div class="flex-container">
+                <div class="model-text">这是文案</div>
+                <div class="model-text">这是文案</div>
+            </div>
+            <div class="flex-container">
+                <div class="model-text">这是文案</div>
+                <div class="model-text">这是文案</div>
+            </div>
+            </div>
+            <div class="model-item">
+            <img class="model-img" src="./img/mod.png" alt="">
+            <div class="flex-container">
+                <div class="model-text">这是文案</div>
+                <div class="model-text">这是文案</div>
+            </div>
+            <div class="flex-container">
+                <div class="model-text">这是文案</div>
+                <div class="model-text">这是文案</div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="article-model">
+        <div class="article-model-item">
+            <img class="article-model-img" src="./img/mod.png" alt="">
+            <div class="article-item">
+                <span class="article-item-text">这是文章标题字号是22的文章标题</span>
+                <span class="article-footer">文章来源 六分钟前</span>
+            </div>
+        </div>
+        <div class="article-model-item">
+            <img class="article-model-img" src="./img/mod.png" alt="">
+            <div class="article-item">
+                <span class="article-item-text">这是文章另一个文章标题</span>
+                <span class="article-footer">文章来源 六分钟前</span>
+            </div>
+        </div>
+        <div class="article-model-item-pics">
+                <div class="article-item-text">这是文章另一个文章标题</div>
+                <div class="article-pics">
+                    <img class="article-model-img" src="./img/mod.png" alt="">
+                    <img class="article-model-img" src="./img/mod.png" alt="">
+                    <img class="article-model-img" src="./img/mod.png" alt="">
+                </div>
+                <div class="article-footer">这是文章另一个文章标题</div>
+        </div>
+    </div>
+
+
+
+
+    <script>
+//      借鉴阿里解决方案
+        var cssEl = document.createElement('style');
+        document.documentElement.firstElementChild.appendChild(cssEl);
+
+        function setPxPerRem(){
+            var dpr = 1;
+            //把viewport分成10份的rem，html标签的font-size设置为1rem的大小;
+            var pxPerRem = document.documentElement.clientWidth * dpr / 10;
+            cssEl.innerHTML = 'html{font-size:' + pxPerRem + 'px!important;}';
+        }
+        setPxPerRem();
+    </script>
+</body>
+</html>
+
+
