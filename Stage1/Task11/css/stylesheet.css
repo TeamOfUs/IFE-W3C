@@ -106,22 +106,27 @@ table {
     text-align: center;
     font-size: 0.3rem;
     background-color: lightgray;
-    width: 3rem;
+    width: 2.9rem;
     height: 1.2rem;
+    margin-left: 0.1rem;
     margin-bottom: 0.1rem;
     padding-top: 0.4rem;
 }
 .model-img {
     display: inline-block;
+    width: 2.5rem;
+    height: 2.5rem;
 }
 .flex-container {
     width: 3rem;
-    margin: 0 auto;
+    height: 2.5rem;
+
 }
 
 .model-item {
     display: flex;
-    margin: 0.2rem
+    margin: 0.2rem;
+    height: 3rem;
 }
 
 .article-model-item {
@@ -129,6 +134,7 @@ table {
     margin: 0.2rem;
     padding: 0.3rem;
     border-bottom: 0.1rem lightgray solid;
+    height: 3rem;
 }
 .article-item {
     display: flex;
@@ -147,7 +153,7 @@ table {
 
 
 .article-model-img {
-    margin: auto;
+    width: 2.5rem;
 }
 
 .article-model-item-pics {
@@ -158,4 +164,13 @@ table {
 .article-pics {
     display: flex;
     margin: 0.2rem 0;
+}
+
+.article-model-img-center {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.flex-center {
+    margin: auto;
 }
