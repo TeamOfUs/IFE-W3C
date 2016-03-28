@@ -23,7 +23,7 @@ function sliceText(text){
 
 function findText(text){
     var child = document.getElementById("container").childNodes;
-    var reg = new RegExp("["+text+"]");
+    var reg = new RegExp(text);
     for (var i=0;i<array.length;i++){
          child[i].setAttribute("style","");
 
