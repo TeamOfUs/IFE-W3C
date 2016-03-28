@@ -52,9 +52,8 @@ function show() {
             if(array.length>=60){
                 alert(value);
             }else{
-                array.unshift(value);
+                array.push(value);
             }
-            array.push(value);
             show();
         }
 
