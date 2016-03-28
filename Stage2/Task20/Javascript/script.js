@@ -25,6 +25,8 @@ function findText(text){
     var child = document.getElementById("container").childNodes;
     var reg = new RegExp("["+text+"]");
     for (var i=0;i<array.length;i++){
+         child[i].setAttribute("style","");
+
          if(reg.test(array[i])){
              child[i].setAttribute("style","background-color:green");
          }
