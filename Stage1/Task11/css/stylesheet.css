@@ -106,22 +106,24 @@ table {
     text-align: center;
     font-size: 0.3rem;
     background-color: lightgray;
-    width: 3rem;
+    width: 2.9rem;
     height: 1.2rem;
+    margin-left: 0.1rem;
     margin-bottom: 0.1rem;
     padding-top: 0.4rem;
 }
 .model-img {
     display: inline-block;
+    width: 2.5rem;
+    height: 2.5rem;
 }
 .flex-container {
     width: 3rem;
-    margin: 0 auto;
+    height: 2.5rem;
 }
 
 .model-item {
     display: flex;
-    margin: 0.2rem
 }
 
 .article-model-item {
@@ -147,7 +149,7 @@ table {
 
 
 .article-model-img {
-    margin: auto;
+    width: 2.5rem;
 }
 
 .article-model-item-pics {
