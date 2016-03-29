@@ -120,13 +120,10 @@ table {
 .flex-container {
     width: 3rem;
     height: 2.5rem;
-
 }
 
 .model-item {
     display: flex;
-    margin: 0.2rem;
-    height: 3rem;
 }
 
 .article-model-item {
@@ -134,7 +131,6 @@ table {
     margin: 0.2rem;
     padding: 0.3rem;
     border-bottom: 0.1rem lightgray solid;
-    height: 3rem;
 }
 .article-item {
     display: flex;
@@ -164,13 +160,4 @@ table {
 .article-pics {
     display: flex;
     margin: 0.2rem 0;
-}
-
-.article-model-img-center {
-    width: 2.5rem;
-    height: 2.5rem;
-}
-
-.flex-center {
-    margin: auto;
 }
