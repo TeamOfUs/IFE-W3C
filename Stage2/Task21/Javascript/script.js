@@ -21,9 +21,11 @@ function show() {
 function showTag(){
     tagContainner.innerHTML = "";
     for (var i=0;i<tagarray.length;i++){
-        var child = document.createElement("div");
+        var child = document.createElement("div"),
+            span = document.createElement("span");
         child.setAttribute("class","output tags");
-        child.innerHTML = tagarray[i];
+        span.innerHTML = tagarray[i];
+        child.appendChild(span);
         document.getElementById("tag-container").appendChild(child);
     }
     addTagHandler();
@@ -33,25 +35,23 @@ function addTagHandler(){
     for(var i=0;i<tags.length;i++){
         tags[i].onmouseover = function(){
             if(this.childNodes.length==1){
-                console.log("1");
                 var deletedTag = document.createElement("span");
                 deletedTag.innerHTML = "删除";
-                this.appendChild(deletedTag);
+                this.insertBefore(deletedTag,this.firstChild);
             }
         }
-        tags[i].onmouseout = function(){
-            this.childNodes[1].remove();
+        tags[i].onmouseout = function(event){
+            this.firstChild.remove();
         }
         tags[i].onclick = function(){
             this.remove();
             for(var i=0;i<tagarray.length;i++){
-                if(tagarray[i]==this.innerText[0]){
+                if(tagarray[i]==this.lastChild.innerText){
                     tagarray.splice(i,1);
                 }
             }
         }
     }
-
 }
 
 function repectItem(){
@@ -69,7 +69,7 @@ function sliceText(text){
 }
 (function(){
         confirm.onclick = function(){
-            array = sliceText(input.value);
+            array = sliceText(input.value.trim());
             show();
         }
         tagText.onkeyup = function(event){
