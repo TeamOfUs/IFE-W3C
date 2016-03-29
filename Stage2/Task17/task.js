@@ -52,7 +52,7 @@ var chartData = {};
 var pageState = {
     nowSelectCity: -1,
     nowGraTime: "day"
-}
+};
 
 /**
  * 渲染图表
@@ -87,6 +87,11 @@ function citySelectChange() {
  * 初始化日、周、月的radio事件，当点击时，调用函数graTimeChange
  */
 function initGraTimeForm() {
+    var graTimes = document.getElementsByName("gra-time");
+
+    for (var i=0; i<graTimes.length; i++) {
+        graTimes[i].addEventListener("click",graTimeChange);
+    }
 
 }
 
@@ -96,7 +101,20 @@ function initGraTimeForm() {
 function initCitySelector() {
     // 读取aqiSourceData中的城市，然后设置id为city-select的下拉列表中的选项
 
+    var citySelect = document.getElementById("city-select"),
+        options = "",
+        city;
+
+    for(city in aqiSourceData){
+        options += "<option>" + city + "</option>";
+    }
+
+    citySelect.innerHTML = options;
+
+
     // 给select设置事件，当选项发生变化时调用函数citySelectChange
+
+    citySelect.addEventListener("change",citySelectChange);
 
 }
 
@@ -112,7 +130,7 @@ function initAqiChartData() {
  * 初始化函数
  */
 function init() {
-    initGraTimeForm()
+    initGraTimeForm();
     initCitySelector();
     initAqiChartData();
 }
