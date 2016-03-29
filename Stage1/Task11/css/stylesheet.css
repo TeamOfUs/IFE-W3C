@@ -124,6 +124,7 @@ table {
 
 .model-item {
     display: flex;
+    margin-top: 0.1rem;
 }
 
 .article-model-item {
@@ -150,6 +151,7 @@ table {
 
 .article-model-img {
     width: 2.5rem;
+    height: 2.5rem;
 }
 
 .article-model-item-pics {
@@ -160,4 +162,7 @@ table {
 .article-pics {
     display: flex;
     margin: 0.2rem 0;
+}
+.flex-center{
+    margin: auto;
 }
