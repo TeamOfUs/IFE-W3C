@@ -21,14 +21,41 @@
          获取aqi-input输入的值，并显示在aqi-display中
          */
         var aqiInput = document.getElementById("aqi-input"),
-             aqiDisplay = document.getElementById("aqi-display"),
-             button = document.getElementById("button");
-        button.onclick = function () {
-            if (aqiInput.value != "") {
-                aqiDisplay.innerHTML = aqiInput.value;
-                aqiInput.value = "";
-            }
-        };
+                aqiDisplay = document.getElementById("aqi-display"),
+                button = document.getElementById("button"),
+                aqiValue;
+
+
+        if (aqiInput && aqiDisplay && button) {
+
+            var substitution = function () {
+                aqiValue = aqiInput.value.trim();
+
+                if (aqiValue) {
+                    aqiDisplay.textContent = aqiValue;
+                    aqiInput.value = "";
+                    aqiInput.focus();
+                } else {
+                    alert("输入不能为空！");
+                }
+            };
+
+            //添加按钮点击事件
+            button.addEventListener("click", substitution);
+
+            //添加键盘回车事件
+            aqiInput.addEventListener("keydown", function (event) {
+                if (13 === event.keyCode) {
+                    substitution();
+                }
+            });
+
+        } else {
+
+            throw new Error("Element Not Found!");
+
+        }
+
     })();
 
 </script>
