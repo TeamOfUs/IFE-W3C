@@ -33,14 +33,14 @@ function showTag(){
 function addTagHandler(){
     var tags = document.getElementsByClassName("tags");
     for(var i=0;i<tags.length;i++){
-        tags[i].onmouseover = function(){
+        tags[i].onmouseenter = function(){
             if(this.childNodes.length==1){
                 var deletedTag = document.createElement("span");
                 deletedTag.innerHTML = "删除";
                 this.insertBefore(deletedTag,this.firstChild);
             }
         }
-        tags[i].onmouseout = function(event){
+        tags[i].onmouseleave = function(event){
             this.firstChild.remove();
         }
         tags[i].onclick = function(){
