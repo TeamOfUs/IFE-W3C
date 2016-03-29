@@ -141,6 +141,7 @@ table {
     flex-direction: column;
     justify-content: space-between;
     padding: 0 0.2rem;
+    width: 6.5rem;
 }
 .article-item-text {
     font-size: 0.5rem;
