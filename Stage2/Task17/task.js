@@ -64,23 +64,40 @@ function renderChart() {
 /**
  * 日、周、月的radio事件点击时的处理函数
  */
-function graTimeChange() {
+function graTimeChange(event) {
     // 确定是否选项发生了变化
+    var targetGraTime = event.target.value;
 
-    // 设置对应数据
+    if (targetGraTime != pageState.nowGraTime) {
 
-    // 调用图表渲染函数
+        // 设置对应数据
+        pageState.nowGraTime = targetGraTime;
+        initAqiChartData();
+
+        // 调用图表渲染函数
+        renderChart();
+    }
 }
 
 /**
  * select发生变化时的处理函数
  */
-function citySelectChange() {
+function citySelectChange(event) {
     // 确定是否选项发生了变化
 
-    // 设置对应数据
+    var targetCity = event.target.value;
 
-    // 调用图表渲染函数
+    targetCity = targetCity[0] == "-" ? -1 : targetCity;
+
+    if(targetCity != pageState.nowSelectCity){
+
+        // 设置对应数据
+        pageState.nowSelectCity = targetCity;
+        initAqiChartData();
+
+        // 调用图表渲染函数
+        renderChart();
+    }
 }
 
 /**
