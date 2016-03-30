@@ -102,7 +102,7 @@ function initCitySelector() {
     // 读取aqiSourceData中的城市，然后设置id为city-select的下拉列表中的选项
 
     var citySelect = document.getElementById("city-select"),
-        options = "",
+        options = "<option>--请选择--</option>",
         city;
 
     for(city in aqiSourceData){
