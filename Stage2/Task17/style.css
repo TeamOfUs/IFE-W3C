@@ -1,0 +1,39 @@
+.aqi-chart-wrap {
+    width: 1000px;
+    height: 500px;
+    margin: 0 auto;
+    border: 1px solid #000000;
+    position: relative;
+    overflow: hidden;
+
+}
+.aqi-chart-wrap div {
+    position: absolute;
+    bottom: 0;
+}
+
+.day{
+    width: 8px;
+}
+.week{
+    width: 38px;
+}
+.month{
+    width: 78px;
+}
+
+.level-5 {
+    background-color: black;
+}
+.level-4 {
+    background-color: purple;
+}
+.level-3 {
+    background-color: red;
+}
+.level-2 {
+    background-color: blue;
+}
+.level-1 {
+    background-color: green;
+}
