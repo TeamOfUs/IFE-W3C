@@ -58,6 +58,53 @@ var pageState = {
  * 渲染图表
  */
 function renderChart() {
+    console.log(JSON.stringify(chartData));
+    console.log(chartData);
+
+    var item,
+        aqi,
+        classStr,
+        titleStr,
+        styleStr,
+        i = 0,
+        htmlStr = "";
+
+
+    if (pageState.nowGraTime == "day") {
+
+        for (item in chartData) {
+
+            aqi = chartData[item];
+            classStr = "day level-" + Math.ceil(aqi/100);
+            titleStr = "时间:" + item + "; AQI:" + aqi;
+            styleStr = "height:" + aqi + "px; left:" + 10*i++ + "px";
+
+            console.log(classStr + "    " + titleStr);
+
+            htmlStr += "<div class='" + classStr + "' title='" + titleStr + "' style='" + styleStr + "'></div>";
+
+        }
+
+    } else {
+
+        for (item in chartData) {
+
+            aqi = chartData[item].aqiAverage;
+            classStr = pageState.nowGraTime + " level-" + Math.ceil(aqi/100);
+            titleStr = "时间:" + chartData[item].timeBegin + " 到 " + chartData[item].timeEnd + "; AQI:" + aqi;
+            styleStr = "height:" + aqi + "px; left:" + (pageState.nowGraTime == "week" ? 40 : 80)*i++ + "px";
+
+
+            console.log(classStr + "    " + titleStr);
+
+
+            htmlStr += "<div class='" + classStr + "' title='" + titleStr + "' style='" + styleStr + "'></div>";
+
+        }
+    }
+
+
+    document.getElementsByClassName("aqi-chart-wrap")[0].innerHTML = htmlStr;
 
 }
 
@@ -162,12 +209,19 @@ function initAqiChartData() {
                 var date,
                     day,
                     dateStr,
+                    timeBegin,
+                    item,
                     count = 0,
                     total = 0,
                     weekNumber = 1;
 
                 //前几周
                 for(dateStr in aqiSourceData[city]){
+
+                    //第一天
+                    if (!timeBegin) {
+                        timeBegin = dateStr;
+                    }
 
                     date = new Date(dateStr);
                     day = date.getDay();
@@ -176,18 +230,33 @@ function initAqiChartData() {
                     total += aqiSourceData[city][dateStr];
                     count++;
 
-                    //每周六
-                    if (day == 6) {
-                        chartData["第" + weekNumber + "周"] = Math.round(total/count);
+                    if (!day) {
+                        //每周日
+                        item = {};
+                        item.timeBegin = timeBegin;
+                        item.timeEnd = dateStr;
+                        item.aqiAverage = Math.round(total/count);
+
+                        chartData["第" + weekNumber + "周"] = item;
+
                         count = 0;
                         total = 0;
                         weekNumber++;
+                    } else if (day == 1) {
+                        //每周一
+                        timeBegin = dateStr;
                     }
                 }
 
                 //如果最后一周未满7天，新加一周
                 if (!count) {
-                    chartData["第" + weekNumber + "周"] = Math.round(total/count);
+                    item = {};
+
+                    item.timeBegin = timeBegin;
+                    item.timeEnd = dateStr;
+                    item.aqiAverage = Math.round(total/count);
+
+                    chartData["第" + weekNumber + "周"] = item;
                 }
 
             })();
@@ -197,36 +266,40 @@ function initAqiChartData() {
             (function () {
                 "use strict";
 
-                var dateStr = aqiSourceData[city][0],
-                    date = new Date(dateStr),
-                    month = date.getMonth(),
-                    monthNumber = 1,
-                    count = 0,
-                    total = 0;
+                var dateStr,
+                    date,
+                    item,
+                    tempData = {},
+                    timeStr = "";
 
-                //前几个月
-                for(dateStr in aqiSourceData[city]){
+                for(dateStr in aqiSourceData[city]) {
 
                     date = new Date(dateStr);
 
-                    total += aqiSourceData[city][dateStr];
-                    count++;
+                    //为每个月份创建对象
+                    if (timeStr != dateStr.slice(0, 7)) {
 
-                    //每到新月份
-                    if (date.getMonth() != month) {
-                        month = date.getMonth();
+                        timeStr = dateStr.slice(0, 7);
 
-                        chartData["第" + monthNumber + "月"] = Math.round(total/count);
+                        chartData[timeStr] = {};
+                        tempData[timeStr] = {};
 
-                        count=0;
-                        total=0;
-                        monthNumber++;
+                        chartData[timeStr].timeBegin = dateStr;
+
+                        tempData[timeStr].total = 0;
+                        tempData[timeStr].count = 0;
+
                     }
+
+                    chartData[timeStr].timeEnd = dateStr;
+
+                    tempData[timeStr].total += aqiSourceData[city][dateStr];
+                    tempData[timeStr].count++;
+
                 }
 
-                //处理最后一个月份
-                if (!count) {
-                    chartData["第" + monthNumber + "月"] = Math.round(total/count);
+                for (item in chartData) {
+                    chartData[item].aqiAverage = Math.round(tempData[item].total / tempData[item].count);
                 }
 
             })();
