@@ -141,6 +141,99 @@ function initCitySelector() {
 function initAqiChartData() {
     // 将原始的源数据处理成图表需要的数据格式
     // 处理好的数据存到 chartData 中
+
+    var time = pageState.nowGraTime,
+        city = pageState.nowSelectCity;
+
+    chartData={};
+
+    if (city == -1) return;
+
+
+    switch (time) {
+        case "day":
+            chartData = aqiSourceData[city];
+            break;
+
+        case "week":
+            (function () {
+                "use strict";
+
+                var date,
+                    day,
+                    dateStr,
+                    count = 0,
+                    total = 0,
+                    weekNumber = 1;
+
+                //前几周
+                for(dateStr in aqiSourceData[city]){
+
+                    date = new Date(dateStr);
+                    day = date.getDay();
+
+
+                    total += aqiSourceData[city][dateStr];
+                    count++;
+
+                    //每周六
+                    if (day == 6) {
+                        chartData["第" + weekNumber + "周"] = Math.round(total/count);
+                        count = 0;
+                        total = 0;
+                        weekNumber++;
+                    }
+                }
+
+                //如果最后一周未满7天，新加一周
+                if (!count) {
+                    chartData["第" + weekNumber + "周"] = Math.round(total/count);
+                }
+
+            })();
+            break;
+
+        case "month":
+            (function () {
+                "use strict";
+
+                var dateStr = aqiSourceData[city][0],
+                    date = new Date(dateStr),
+                    month = date.getMonth(),
+                    monthNumber = 1,
+                    count = 0,
+                    total = 0;
+
+                //前几个月
+                for(dateStr in aqiSourceData[city]){
+
+                    date = new Date(dateStr);
+
+                    total += aqiSourceData[city][dateStr];
+                    count++;
+
+                    //每到新月份
+                    if (date.getMonth() != month) {
+                        month = date.getMonth();
+
+                        chartData["第" + monthNumber + "月"] = Math.round(total/count);
+
+                        count=0;
+                        total=0;
+                        monthNumber++;
+                    }
+                }
+
+                //处理最后一个月份
+                if (!count) {
+                    chartData["第" + monthNumber + "月"] = Math.round(total/count);
+                }
+
+            })();
+            break;
+
+    }
+
 }
 
 /**
