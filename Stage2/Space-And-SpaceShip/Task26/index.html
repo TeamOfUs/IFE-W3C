@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task26</title>
+</head>
+<body>
+   <style>
+       *{
+           margin: 0px;
+           padding: 0px;
+       }
+       body{
+           overflow: scroll;
+           min-width: 1400px;
+       }
+       #contain{
+           display: flex;
+       }
+       #monitor{
+           display: inline-block;
+           height: 700px;
+           width: 700px;
+           border: 1px solid;
+           margin: 0 auto;
+       }
+        
+       #logs{
+           display: inline-block;
+           width: 300px;
+           height: 500px;
+           border: 1px solid;
+           overflow: scroll;
+           float: right;
+       }
+       #controller{
+           display: inline-block;
+           width: 300px;
+           height: 500px;
+           border: 1px solid;
+           float: left;
+       }
+       .ship{
+           width: 100px;
+           height: 20px;
+           background-color: red;
+           position: relative;
+           bottom: 650px;
+           left: 310px;
+           color: white;
+           text-align: center;
+           margin-bottom: 5px;
+       }
+       .btn{
+           margin: 5px;
+       }
+    </style>
+    
+    <div id="contain">
+    <div id="controller">
+        <button id="create">新的战舰！起飞！</button>
+    </div>
+    <div id="monitor">
+        <canvas id="canvas-monitor" width=700px height=700px></canvas>
+    </div>
+    <div id="logs"></div>
+    </div>
+    <script src="Javascript/script.js"></script>
+</body>
+</html>
