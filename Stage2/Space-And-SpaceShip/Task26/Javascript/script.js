@@ -62,87 +62,86 @@ function drawEarth(ctx){
 
 //定义飞船的构造函数
 function Ship (id) {
-    var id = id,
-        power = 100,
-        state ="",
-        runInterval ,
-        stopInterval ,
-        powerUpInterval ,
-        deg = 0;
-    function runShip(id){
-        if(state=="run"){
+    this.id = id;
+}
+
+//ship的prototype重定义
+Ship.prototype = {
+    id:"",
+    state:"",
+    power : 100,
+    runInterval:"" ,
+    stopInterval:"" ,
+    powerUpInterval:"" ,
+    deg : 0,
+    //因为Ship.prototype覆盖原来的prototype所以constructor也被覆盖，要重新指定一下。
+    constructor:Ship,
+    runShip:function (id){
+        console.log(this);
+        if(this.state=="run"){
             return;
         }
-        var ship = document.getElementById("ship"+id);
-            state = "run";
-            distance = 300-(id*20);
-            runInterval = setInterval(function(){
-            deg++;
-            ship.setAttribute("style","transform: rotate("+deg+"deg);"+"transform-origin:50% "+distance+"px;");
-        },50);
-            stopInterval = setInterval(function(){
-            power--;
-            ship.innerHTML = power;
-            if(power==0){
-                stopShip(id);
-                clearInterval(runInterval);
-                clearInterval(stopInterval);
-                powerUp(id);
+        var ship = document.getElementById("ship"+id),
+            distance = 300-(this.id*20);
+            this.state = "run",
+            that = this;
+            this.runInterval = setInterval(function(){
+                that.deg++;
+                ship.setAttribute("style","transform: rotate("+that.deg+"deg);"+"transform-origin:50% "+distance+"px;");
+             },50);
+            this.stopInterval = setInterval(function(){
+                that.power--;
+                ship.innerHTML = that.power;
+                if(that.power==0){
+                    that.stopShip(that.id);
+                    clearInterval(that.runInterval);
+                    clearInterval(that.stopInterval);
+                    that.powerUp(that.id);
             }
-        },100);
-    }
-    function stopShip(id){
+            },100);
+    },
+    stopShip:function (id){
         var ship = document.getElementById("ship"+id);
-        clearInterval(runInterval);
-        clearInterval(stopInterval);
-        
-    }
-    function destroyShip(id){
+        this.state="stop";
+        clearInterval(this.runInterval);
+        clearInterval(this.stopInterval);
+    },
+    destroyShip:function (id){
         var ship = document.getElementById("ship"+id);
         ship.remove();
-    }
-    function powerUp(id){
-        var ship = document.getElementById("ship"+id);
-        powerUpInterval = setInterval(function(){
-            power++;
-            ship.innerHTML = power;
-            if(power==100){
-                clearInterval(powerUpInterval);
+    },
+    powerUp:function (id){
+        var ship = document.getElementById("ship"+id),
+            that = this;
+        this.powerUpInterval = setInterval(function(){
+            that.power++;
+            ship.innerHTML = that.power;
+            if(that.power==100){
+                clearInterval(that.powerUpInterval);
             }
         },50);
-    }
-    return {
-        getId : function(){
-            return id;
-        },
-        getState : function(){
-            return state;
-        },
-        receive : function(command){
-            if(command.id == this.getId()){
-                logs.output(this.getId()+"号战舰接收到命令"+command.command);
-                switch (command.command){
-                    case "run":
-                        runShip(command.id);
-                        break;
-                    case "stop":
-                        stopShip(command.id);
-                        break;
-                    case "destroy":
-                        destoryShip(command.id);
-                        break;
-                    default:
-                        break;
-                }
+    },
+    receive : function(command){
+        if(command.id == this.id){
+            logs.output(this.id+"号战舰接收到命令"+command.command);
+            switch (command.command){
+                case "run":
+                    this.runShip(command.id);
+                    break;
+                case "stop":
+                    this.stopShip(command.id);
+                    break;
+                case "destroy":
+                    this.destoryShip(command.id);
+                    break;
+                default:
+                    break;
             }
         }
     }
 }
 
-
-
-
-
+//Ship.prototype.constructor = Ship;
 
 //ShipFactory 工厂模式
 var Factory = (function(){
@@ -181,7 +180,7 @@ function addhandler(){
             return ;
         }
         newShipController(id);
-        drawShip(id);
+        drawShip_dom(id);
         addhandler();
     }
     for(var i=0;i<run.length;i++){
@@ -197,7 +196,6 @@ function addhandler(){
 
     }
 }
-
 function getShipIdFromDivClass(event){
     return event.currentTarget.parentElement.className;
 }
@@ -217,17 +215,24 @@ function ifMissing(){
     return (Math.random()*10)>3;
 }
 
-function drawShip(id){
+function drawShip_dom(id){
     var ship = document.createElement("div");
     ship.setAttribute("class","ship "+id);
     ship.setAttribute("id","ship"+id);
     ship.innerHTML = 100;
     monitor.appendChild(ship);
 }
-function runShip(id){}
-function stopShip(id){}
-function destoryShip(id){
+function runShip_dom(id){}
+function stopShip_dom(id){}
+function destoryShip_dom(id){
     document.getElementById("ship"+id).remove();
+}
+function boardcastCommand(command){
+    setTimeout(function(){
+        for(var i=0;i<Mediator.MediatorShips.length;i++){
+            Mediator.MediatorShips[i].receive(command);
+        }  
+    },1000);
 }
 
 var Mediator = {
@@ -238,11 +243,7 @@ var Mediator = {
     boardcast : function(command){
         this.update();
         if(ifMissing()){
-            setTimeout(function(){
-                for(var i=0;i<Mediator.MediatorShips.length;i++){
-                    Mediator.MediatorShips[i].receive(command);
-                }  
-            },1000);
+            boardcastCommand(command);
         }else{
             logs.output("Command Missing(指挥官不知道)");
             return;
@@ -260,9 +261,3 @@ var logs = {
 }
 
 
-//            var ship = document.getElementById(i.toString());
-//            var deg = 0;
-//            setInterval(function(){
-//                deg++;
-//                ship.setAttribute("style","transform: rotate("+deg+"deg)");
-//            },50);
