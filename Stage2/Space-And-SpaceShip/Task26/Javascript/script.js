@@ -77,7 +77,6 @@ Ship.prototype = {
     //因为Ship.prototype覆盖原来的prototype所以constructor也被覆盖，要重新指定一下。
     constructor:Ship,
     runShip:function (id){
-        console.log(this);
         if(this.state=="run"){
             return;
         }
@@ -107,8 +106,12 @@ Ship.prototype = {
         clearInterval(this.stopInterval);
     },
     destroyShip:function (id){
-        var ship = document.getElementById("ship"+id);
+        var ship = document.getElementById("ship"+id),
+            controller = document.getElementsByClassName(id);
         ship.remove();
+        controller[0].remove();
+        Factory.deleteShip(id);
+        btnCreateEnabled();
     },
     powerUp:function (id){
         var ship = document.getElementById("ship"+id),
@@ -132,7 +135,7 @@ Ship.prototype = {
                     this.stopShip(command.id);
                     break;
                 case "destroy":
-                    this.destoryShip(command.id);
+                    this.destroyShip(command.id);
                     break;
                 default:
                     break;
@@ -145,27 +148,37 @@ Ship.prototype = {
 
 //ShipFactory 工厂模式
 var Factory = (function(){
-    var ships = [];
+    var ships = [],
+        length = 0;
     return {
         createShip : function() {
-            if(ships.length>=4){
+            if(length>=4){
                 btnCreateDisabled();
                 logs.output("飞船数量已经达到上限！")
                 return false;
             }
             if(ships.length===0){
                 ships[0] = new Ship(0);
+                length++;
                 return 0;
             }
             for(var i=0;i<ships.length+1&&i<4;i++){
                 if(!ships[i]){
                     ships[i] = new Ship(i);
+                    length++;
                     return i;
                 }
             }
         },
         getShips : function(){
             return ships;
+        },
+        deleteShip : function(id){
+            length--;
+            delete ships[id];
+        },
+        getLength : function(){
+            return length;
         }
     }
 })()
@@ -203,7 +216,7 @@ function btnCreateDisabled(){
     create.setAttribute("disabled","true");
 }
 function btnCreateEnabled(){
-    create.setAttribute("disabled","false");
+    create.removeAttribute("disabled");
 }
 function newShipController(id){
     spaceController = document.createElement("div");
@@ -211,45 +224,39 @@ function newShipController(id){
     controller.appendChild(spaceController);
     spaceController.innerHTML = "战舰"+id+"号控制中心"+"<button class=\"btn btn-run\">出击！</button><button class=\"btn btn-stop\">休息！</button><button class=\"btn btn-destroy\">去死吧！</button>";
 }
-function ifMissing(){
-    return (Math.random()*10)>3;
-}
-
 function drawShip_dom(id){
     var ship = document.createElement("div");
-    ship.setAttribute("class","ship "+id);
+    ship.setAttribute("class","ship");
     ship.setAttribute("id","ship"+id);
     ship.innerHTML = 100;
     monitor.appendChild(ship);
 }
-function runShip_dom(id){}
-function stopShip_dom(id){}
-function destoryShip_dom(id){
-    document.getElementById("ship"+id).remove();
-}
-function boardcastCommand(command){
-    setTimeout(function(){
-        for(var i=0;i<Mediator.MediatorShips.length;i++){
-            Mediator.MediatorShips[i].receive(command);
-        }  
-    },1000);
-}
 
 var Mediator = {
-    MediatorShips : [],
+    MediatorShips : Factory.getShips(),
+    ifMissing:function(){
+        return (Math.random()*10)>3;
+    },
     update : function(){
         this.MediatorShips = Factory.getShips();
     },
     boardcast : function(command){
         this.update();
-        if(ifMissing()){
-            boardcastCommand(command);
+        if(this.ifMissing()){
+            this.boardcastCommand(command);
         }else{
             logs.output("Command Missing(指挥官不知道)");
             return;
         }
+    },
+    boardcastCommand:function (command){
+    setTimeout(function(){
+        for(var i=0;i<Mediator.MediatorShips.length;i++){
+            if(Mediator.MediatorShips[i])
+            Mediator.MediatorShips[i].receive(command);
+        }  
+        },1000);
     }
-    
 }
 //控制台输出
 var logs = {
@@ -259,5 +266,3 @@ var logs = {
         myconsole.appendChild(messageElement);
     }
 }
-
-
