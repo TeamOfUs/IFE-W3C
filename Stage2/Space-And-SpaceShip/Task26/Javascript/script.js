@@ -44,9 +44,8 @@ var run = document.getElementsByClassName("btn-run"),
     canvas = document.getElementById("canvas-monitor"),
     monitor = document.getElementById("monitor"),
     ctx = canvas.getContext('2d'),
-    myconsole = document.getElementById("logs");
-
-var commander = Commander.getInstance();
+    myconsole = document.getElementById("logs"),
+    commander = Commander.getInstance();
 
 (function(){
     drawEarth(ctx);
@@ -62,50 +61,43 @@ function drawEarth(ctx){
 
 //定义飞船的构造函数
 function Ship (id) {
-    this.id = id;
-}
-
-//ship的prototype重定义
-Ship.prototype = {
-    id:"",
-    state:"",
-    power : 100,
-    runInterval:"" ,
-    stopInterval:"" ,
-    powerUpInterval:"" ,
-    deg : 0,
-    //因为Ship.prototype覆盖原来的prototype所以constructor也被覆盖，要重新指定一下。
-    constructor:Ship,
-    runShip:function (id){
-        if(this.state=="run"){
+    //保护私有变量
+    var id = id,
+        state="stop",
+        power = 100,
+        runInterval=null ,
+        stopInterval=null ,
+        powerUpInterval=null ,
+        deg = 0;
+    this.runShip=function (){
+        if(state=="run"){
             return;
         }
         var ship = document.getElementById("ship"+id),
-            distance = 300-(this.id*20);
-            this.state = "run",
-            that = this;
-            this.runInterval = setInterval(function(){
-                that.deg++;
-                ship.setAttribute("style","transform: rotate("+that.deg+"deg);"+"transform-origin:50% "+distance+"px;");
+            distance = 300-(id*20);
+            state = "run",
+            runInterval = setInterval(function(){
+                deg++;
+                ship.setAttribute("style","transform: rotate("+deg+"deg);"+"transform-origin:50% "+distance+"px;");
              },50);
-            this.stopInterval = setInterval(function(){
-                that.power--;
-                ship.innerHTML = that.power;
-                if(that.power==0){
-                    that.stopShip(that.id);
-                    clearInterval(that.runInterval);
-                    clearInterval(that.stopInterval);
-                    that.powerUp(that.id);
+            stopInterval = setInterval(function(){
+                power--;
+                ship.innerHTML = power;
+                if(power==0){
+                    this.stopShip(id);
+                    clearInterval(runInterval);
+                    clearInterval(stopInterval);
+                    this.powerUp(id);
             }
             },100);
     },
-    stopShip:function (id){
+    this.stopShip=function (){
         var ship = document.getElementById("ship"+id);
-        this.state="stop";
-        clearInterval(this.runInterval);
-        clearInterval(this.stopInterval);
+        state="stop";
+        clearInterval(runInterval);
+        clearInterval(stopInterval);
     },
-    destroyShip:function (id){
+    this.destroyShip=function (){
         var ship = document.getElementById("ship"+id),
             controller = document.getElementsByClassName(id);
         ship.remove();
@@ -113,29 +105,28 @@ Ship.prototype = {
         Factory.deleteShip(id);
         btnCreateEnabled();
     },
-    powerUp:function (id){
+    this.powerUp=function (){
         var ship = document.getElementById("ship"+id),
-            that = this;
-        this.powerUpInterval = setInterval(function(){
-            that.power++;
-            ship.innerHTML = that.power;
-            if(that.power==100){
-                clearInterval(that.powerUpInterval);
+        powerUpInterval = setInterval(function(){
+            power++;
+            ship.innerHTML = power;
+            if(power==100){
+                clearInterval(powerUpInterval);
             }
         },50);
     },
-    receive : function(command){
-        if(command.id == this.id){
-            logs.output(this.id+"号战舰接收到命令"+command.command);
+    this.receive=function(command){
+        if(command.id == id){
+            logs.output(id+"号战舰接收到命令"+command.command);
             switch (command.command){
                 case "run":
-                    this.runShip(command.id);
+                    this.runShip();
                     break;
                 case "stop":
-                    this.stopShip(command.id);
+                    this.stopShip();
                     break;
                 case "destroy":
-                    this.destroyShip(command.id);
+                    this.destroyShip();
                     break;
                 default:
                     break;
@@ -144,9 +135,7 @@ Ship.prototype = {
     }
 }
 
-//Ship.prototype.constructor = Ship;
-
-//ShipFactory 工厂模式
+//造船厂
 var Factory = (function(){
     var ships = [],
         length = 0;
@@ -209,6 +198,7 @@ function addhandler(){
 
     }
 }
+//一些功能函数
 function getShipIdFromDivClass(event){
     return event.currentTarget.parentElement.className;
 }
@@ -232,6 +222,7 @@ function drawShip_dom(id){
     monitor.appendChild(ship);
 }
 
+//Mediator传播中介
 var Mediator = {
     MediatorShips : Factory.getShips(),
     ifMissing:function(){
